@@ -1,7 +1,7 @@
 /* App.css */
 
 #app-container {
-    padding: 0px;
+    padding: 0;
     background-color: #2e2e2e;
 }
 
@@ -9,11 +9,19 @@
     background-color: #3b3b3b;
 }
 
-.text-right {
-    background-color: #617eb8;
-    text-align: right;
+.text-user {
+    #text-align: right;
 }
 
-.text-left {
+.text-chatbot {
+    background-color: #617eb8;
+}
 
+#send-btn {
+    background-color: #3a65ba;
+    //height: 40px;
+}
+
+.user-input {
+    resize: none;
 }
