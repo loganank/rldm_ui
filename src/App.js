@@ -28,8 +28,18 @@ function App() {
 
     const sendMessage = async (message) => {
         // Simulate API response after a short delay
-        await new Promise((resolve) => setTimeout(resolve, 10));
-        return `API Response to: "${message}"`;
+        let response = await fetch('http://localhost:5000/sendMessage', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(message)
+        });
+
+        let json_response = await response.json();
+        let server_decision = json_response.decision;
+        console.log(server_decision)
+        return "The decision is: " + server_decision;
     };
 
     useEffect(() => {
@@ -49,6 +59,7 @@ function App() {
                                 message.sender === 'user' ? 'text-user' : 'text-chatbot'
                             }`} style={{ maxWidth: '50vw' }}
                         >
+                            <img id="circle" src={"circle.png"} alt={"star"}/>
                             <div
                                 className={`message p-2 ${
                                     message.sender === 'user' ? 'text-white' : 'text-white'

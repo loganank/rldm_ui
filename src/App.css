@@ -25,3 +25,8 @@
 .user-input {
     resize: none;
 }
+
+#circle {
+    width: 20px;
+    height: 20px;
+}
