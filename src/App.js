@@ -4,19 +4,26 @@ import {useEffect, useRef, useState} from "react";
 function App() {
     const [messages, setMessages] = useState([]);
     const [inputMessage, setInputMessage] = useState('');
+    const [loading, setLoading] = useState(false);
     const inputTextAreaRef = useRef(null);
     const maxInputRows= 8;
 
     const handleMessageSend = async () => {
         if (inputMessage.trim() === '') return;
 
-        const userMessage = { text: inputMessage, sender: 'user' };
-        const response = await sendMessage(inputMessage);
-        const modelMessage = { text: response, sender: 'api' };
+        setLoading(true); // Set loading to true before making the request
 
-        // Add both the user and API messages to the messages array
-        setMessages([...messages, userMessage, modelMessage]);
-        setInputMessage(''); // Clear the input field
+        try {
+            const userMessage = {text: inputMessage, sender: 'user'};
+            const response = await sendMessage(inputMessage);
+            const modelMessage = {text: response, sender: 'api'};
+
+            // Add both the user and API messages to the messages array
+            setMessages([...messages, userMessage, modelMessage]);
+            setInputMessage(''); // Clear the input field
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleKeyPress = (event) => {
@@ -38,7 +45,6 @@ function App() {
 
         let json_response = await response.json();
         let server_decision = json_response.decision;
-        console.log(server_decision)
         return "The decision is: " + server_decision;
     };
 
@@ -59,7 +65,9 @@ function App() {
                                 message.sender === 'user' ? 'text-user' : 'text-chatbot'
                             }`} style={{ maxWidth: '50vw' }}
                         >
-                            <img id="circle" src={"circle.png"} alt={"star"}/>
+                            <div className="circle-container">
+                                <img id="circle" src={"circle.png"} alt={"circle"} />
+                            </div>
                             <div
                                 className={`message p-2 ${
                                     message.sender === 'user' ? 'text-white' : 'text-white'
@@ -79,9 +87,10 @@ function App() {
                         onKeyDown={handleKeyPress}
                         className="form-control user-input"
                         placeholder="Type a message..."
+                        disabled={loading} // Disable input when loading
                     />
-                    <button id="send-btn" onClick={handleMessageSend} className="btn">
-                        Send
+                    <button id="send-btn" onClick={handleMessageSend} className="btn" disabled={loading}>
+                        {loading ? 'Sending...' : 'Send'}
                     </button>
                 </div>
         </div>
