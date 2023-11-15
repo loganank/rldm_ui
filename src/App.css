@@ -19,7 +19,6 @@
 
 #send-btn {
     background-color: #3a65ba;
-    //height: 40px;
 }
 
 .user-input {
@@ -29,4 +28,8 @@
 #circle {
     width: 20px;
     height: 20px;
+}
+
+.circle-container {
+    margin-right: 5px;
 }
