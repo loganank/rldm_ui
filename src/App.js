@@ -106,9 +106,9 @@ function App() {
 
     return (
         <div id="app-container" className="container-fluid text-white min-vh-100 d-flex flex-column">
-                <div id="message-container" className="flex-grow-1 overflow-auto p-5 text-center" style={{ maxHeight: '87vh' }}>
+                <div id="message-container" className="flex-grow-1 overflow-auto p-5" style={{ maxHeight: '87vh' }}>
                     {showInitialMessage && (
-                        <div className="alert alert-info mt-3 fade show" role="alert">
+                        <div className="alert alert-info mt-3 fade show text-center" role="alert">
                             {initialMessageText}
                         </div>
                     )}
