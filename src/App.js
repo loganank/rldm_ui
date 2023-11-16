@@ -17,6 +17,11 @@ function App() {
         by selecting the decision it should have made.
         Have fun!
         `
+    const optionsText = [
+        "Generated a Response",
+        "Asked for Clarification",
+        "Unsure, so Provided Options"
+    ]
 
     const handleMessageSend = async () => {
         if (inputMessage.trim() === '') return;
@@ -32,11 +37,7 @@ function App() {
             // Add both the user and API messages to the messages array
             setMessages([...messages, userMessage, modelMessage]);
             setInputMessage(''); // Clear the input field
-            setOptions([
-                "Generated a Response",
-                "Asked for Clarification",
-                "Unsure, so Provided Options"
-            ]);
+            setOptions(optionsText);
         } finally {
             setLoading(false);
         }
@@ -79,7 +80,7 @@ function App() {
 
         let json_response = await response.json();
         let server_decision = json_response.decision;
-        return "The decision is: " + server_decision;
+        return "The decision is: " + optionsText[server_decision];
     };
 
     const sendCorrectDecision = async (correct_decision) => {
@@ -163,9 +164,10 @@ function App() {
                         onKeyDown={handleKeyPress}
                         className="form-control user-input"
                         placeholder="Type a message..."
-                        disabled={loading} // Disable input when loading
+                        disabled={loading || options.length > 0} // Disable input when loading
                     />
-                    <button id="send-btn" onClick={handleMessageSend} className="btn" disabled={loading}>
+                    <button id="send-btn" onClick={handleMessageSend} className="btn"
+                            disabled={loading || options.length > 0}>
                         {loading ? 'Sending...' : 'Send'}
                     </button>
                 </div>
