@@ -3,6 +3,7 @@ import {useEffect, useRef, useState} from "react";
 
 function App() {
     const [messages, setMessages] = useState([]);
+	const [userMessageCount, setUserMessageCount] = useState(0);
     const [inputMessage, setInputMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const [options, setOptions] = useState([]);
@@ -27,6 +28,7 @@ function App() {
         if (inputMessage.trim() === '') return;
 
         setShowInitialMessage(false);
+		setUserMessageCount(userMessageCount + 1);
         setLoading(true); // Set loading to true before making the request
 
         try {
@@ -171,6 +173,10 @@ function App() {
                         {loading ? 'Sending...' : 'Send'}
                     </button>
                 </div>
+				<h5 id="message-count" className="text-center">
+					Messages sent: {userMessageCount}
+				</h5>
+
         </div>
     );
 }
