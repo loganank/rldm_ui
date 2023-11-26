@@ -10,6 +10,7 @@ function App() {
     const inputTextAreaRef = useRef(null);
     const maxInputRows= 8;
     const [continueMessage, setContinueMessage] = useState(false);
+	const [optionSelected, setOptionSelected] = useState(false);
     const continueText = "You may now send a message.";
     const [showInitialMessage, setShowInitialMessage] = useState(true);
     const initialMessageText = `Please ask 50 questions. 
@@ -50,17 +51,21 @@ function App() {
         setTimeout(() => {
             setContinueMessage(false);
         }, 3000); // Adjust the duration (in milliseconds) as needed
+		setOptionSelected(false);
     };
 
     const handleOptionSelect = async (index, option) => {
         // Handle the selected option
-        console.log(`Selected Option: ${option}`);
-        const correctDecision = index;
-        console.log("correct decision: " + correctDecision);
-        await sendCorrectDecision(correctDecision);
-        // Clear the options after selection
-        setOptions([]);
-        showAndHideMessage();
+		if (!optionSelected) {
+			console.log(`Selected Option: ${option}`);
+			setOptionSelected(true);
+			const correctDecision = index;
+			console.log("correct decision: " + correctDecision);
+			await sendCorrectDecision(correctDecision);
+			// Clear the options after selection
+			setOptions([]);
+			showAndHideMessage();
+		}
     };
 
     const handleKeyPress = (event) => {
