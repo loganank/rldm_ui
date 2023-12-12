@@ -1,9 +1,7 @@
 # Simple Chat UI to interact with reinforcement learning server on backend.
 # Find that here: https://github.com/loganank/rldialoguemanager
 
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Getting Started with RLDM_UI
 
 ## Available Scripts
 
