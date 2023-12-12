@@ -3,6 +3,8 @@
 
 # Getting Started with RLDM_UI
 
+You must have node.js installed and yarn, which you can install with `npm install --global yarn`
+
 ## Available Scripts
 
 In the project directory, you can run:
